@@ -16,8 +16,8 @@ export interface Hackathon {
 }
 
 export const INTRO: Text = {
-  ru: 'Я backend-разработчик: пишу на PHP, с 2023 года работаю в Lachestry. Ещё я капитан хакатон-команды «Хардкод». В этом блоге делюсь мыслями о жизни, работе и ИИ.',
-  en: 'I am a backend developer: I write PHP and have been working at Lachestry since 2023. I am also the captain of the hackathon team Hardcode. In this blog I share my thoughts on life, work and AI.',
+  ru: 'Software Engineer. Довожу продукты от идеи до продакшена и руковожу хакатон-командой «Хардкод». Здесь пишу о жизни, работе и ИИ.',
+  en: 'Software Engineer. I take products from idea to production and lead the hackathon team Hardcode. Here I write about life, work and AI.',
 };
 
 export const JOBS: Job[] = [

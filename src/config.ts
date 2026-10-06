@@ -21,7 +21,7 @@ export const T = {
     privacy: 'Политика конфиденциальности',
     career: 'Карьера',
     hackathons: 'Хакатоны',
-    hackLead: 'В составе команды «Хардкод», я капитан и отвечаю за бэкенд.',
+    hackLead: 'С командой «Хардкод», где я капитан.',
     write: 'Написать в Telegram',
   },
   en: {
@@ -36,7 +36,7 @@ export const T = {
     privacy: 'Privacy Policy',
     career: 'Career',
     hackathons: 'Hackathons',
-    hackLead: 'With the Hardcode team, where I am the captain and handle the backend.',
+    hackLead: 'With the Hardcode team, which I captain.',
     write: 'Message me on Telegram',
   },
 } as const;
