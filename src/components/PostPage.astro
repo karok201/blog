@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { T, type Lang } from '../config';
+import { url, slugOf, formatDate, readingTime, type Post } from '../utils';
+
+interface Props {
+  post: Post;
+  lang: Lang;
+  // Перевод поста с тем же слагом, если есть
+  translation?: Post;
+}
+
+const { post, lang, translation } = Astro.props;
+const t = T[lang];
+const other: Lang = lang === 'ru' ? 'en' : 'ru';
+const { title, description, date, tags, cover } = post.data;
+const { Content } = await render(post);
+const altHref = translation ? url(`${other}/${slugOf(translation)}/`) : undefined;
+---
+
+<Base lang={lang} title={title} description={description} altHref={altHref}>
+  <a class="back" href={url(`${lang}/`)}>‹ {t.back}</a>
+  <article>
+    <header class="post-head">
+      <div class="meta">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        <span>{readingTime(post.body)} {t.min}</span>
+      </div>
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      {cover && <Image class="post-cover" src={cover} alt="" width={1736} />}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <div class="post-foot">
+    {tags.length > 0 ? <div class="tags">{tags.map((tag) => <span class="tag">{tag}</span>)}</div> : <span />}
+    {altHref && <a href={altHref}>{t.otherLang}</a>}
+  </div>
+</Base>

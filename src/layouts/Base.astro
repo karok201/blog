@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+import { SITE, T, type Lang } from '../config';
+import { url } from '../utils';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  // Адрес этой же страницы на другом языке
+  altHref?: string;
+}
+
+const { lang, title, description, altHref } = Astro.props;
+const t = T[lang];
+const other: Lang = lang === 'ru' ? 'en' : 'ru';
+const otherHref = altHref ?? url(`${other}/`);
+const fullTitle = title === t.blogTitle ? `${t.blogTitle} | ${SITE.author[lang]}` : `${title} | ${SITE.author[lang]}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const blogHref = url(`${lang}/`);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={other} href={new URL(otherHref, Astro.site)} />
+    <link rel="alternate" type="application/rss+xml" title={fullTitle} href={url(`${lang}/rss.xml`)} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'en_US'} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap"
+    />
+  </head>
+  <body>
+    <header class="container site-header">
+      <a class="logo" href={blogHref}>{SITE.logo}</a>
+      <nav class="nav">
+        <a href={blogHref} aria-current={Astro.url.pathname === blogHref ? 'page' : undefined}>{t.blog}</a>
+      </nav>
+      <div class="header-right">
+        <div class="lang-switch">
+          <a href={lang === 'ru' ? Astro.url.pathname : otherHref} class={lang === 'ru' ? 'active' : undefined}>RU</a>
+          <a href={lang === 'en' ? Astro.url.pathname : otherHref} class={lang === 'en' ? 'active' : undefined}>EN</a>
+        </div>
+        {SITE.telegram && <a class="tg-btn" href={`https://t.me/${SITE.telegram}`}>@{SITE.telegram}</a>}
+      </div>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="container site-footer">
+      <span>© {new Date().getFullYear()} {SITE.author[lang]}</span>
+      <a href={url(`${lang}/rss.xml`)}>RSS</a>
+    </footer>
+  </body>
+</html>

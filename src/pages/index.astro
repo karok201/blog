@@ -1,0 +1,17 @@
+---
+import { url } from '../utils';
+const target = url('ru/');
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Блог</title>
+  </head>
+  <body>
+    <a href={target}>Блог</a>
+  </body>
+</html>

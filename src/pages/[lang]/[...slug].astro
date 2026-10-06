@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import PostPage from '../../components/PostPage.astro';
+import type { Lang } from '../../config';
+import { langOf, slugOf, type Post } from '../../utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts.map((post) => {
+    const lang = langOf(post);
+    const translation = posts.find((p) => langOf(p) !== lang && slugOf(p) === slugOf(post));
+    return { params: { lang, slug: slugOf(post) }, props: { post, translation } };
+  });
+}
+
+const lang = Astro.params.lang as Lang;
+const { post, translation } = Astro.props as { post: Post; translation?: Post };
+---
+
+<PostPage post={post} lang={lang} translation={translation} />

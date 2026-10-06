@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { T, type Lang } from '../config';
+import { url, slugOf, formatDate, readingTime, type Post } from '../utils';
+
+interface Props {
+  post: Post;
+  lang: Lang;
+}
+
+const { post, lang } = Astro.props;
+const { title, description, date, tags, cover } = post.data;
+---
+
+<a class="card" href={url(`${lang}/${slugOf(post)}/`)}>
+  {cover && <Image class="card-cover" src={cover} alt="" width={840} />}
+  <div class="card-body">
+    <div class="meta">
+      <time datetime={date.toISOString()}>{formatDate(date)}</time>
+      <span>{readingTime(post.body)} {T[lang].min}</span>
+    </div>
+    <h2>{title}</h2>
+    <p>{description}</p>
+    {tags.length > 0 && <div class="tags">{tags.map((tag) => <span class="tag">{tag}</span>)}</div>}
+  </div>
+</a>

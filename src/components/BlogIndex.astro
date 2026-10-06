@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from './PostCard.astro';
+import { T, type Lang } from '../config';
+import { getPosts } from '../utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = T[lang];
+const posts = await getPosts(lang);
+---
+
+<Base lang={lang} title={t.blogTitle} description={t.blogLead}>
+  <section class="page-head">
+    <h1>{t.blogTitle}</h1>
+    <p class="lead">{t.blogLead}</p>
+  </section>
+  {
+    posts.length > 0 ? (
+      <section class="grid">{posts.map((post) => <PostCard post={post} lang={lang} />)}</section>
+    ) : (
+      <p class="empty">{t.empty}</p>
+    )
+  }
+</Base>
