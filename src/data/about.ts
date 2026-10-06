@@ -16,8 +16,8 @@ export interface Hackathon {
 }
 
 export const INTRO: Text = {
-  ru: 'Software Engineer. Довожу продукты от идеи до продакшена и руковожу хакатон-командой «Хардкод». Здесь пишу о жизни, работе и ИИ.',
-  en: 'Software Engineer. I take products from idea to production and lead the hackathon team Hardcode. Here I write about life, work and AI.',
+  ru: 'Разработчик, инженер, doer. Пишу о жизни, работе и ИИ.',
+  en: 'Developer, engineer, doer. Writing about life, work and AI.',
 };
 
 export const JOBS: Job[] = [
