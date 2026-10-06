@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LANGS, SITE, T, type Lang } from '../../config';
+import { INTRO, JOBS, HACKATHONS } from '../../data/about';
+import { url } from '../../utils';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const other: Lang = lang === 'ru' ? 'en' : 'ru';
+---
+
+<Base lang={lang} title={t.about} description={INTRO[lang]} altHref={url(`${other}/about/`)}>
+  <section class="page-head">
+    <h1>{SITE.author[lang]}</h1>
+    <p class="lead about-intro">{INTRO[lang]}</p>
+    <a class="text-link" href={`https://t.me/${SITE.telegram}`}>{t.write} →</a>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-title">{t.career}</h2>
+    <ol class="timeline">
+      {
+        JOBS.map((job) => (
+          <li class="tl-item">
+            <div class="tl-head">
+              <h3>{job.company}</h3>
+              <span class="meta">{job.period[lang]}</span>
+            </div>
+            {job.grades && (
+              <ol class="grades">
+                {job.grades.map((g, i) => (
+                  <li class={i === 0 ? 'current' : undefined}>
+                    <span class="grade">{g.title}</span>
+                    <span class="meta">{g.period[lang]}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-title">{t.hackathons}</h2>
+    <p class="lead">{t.hackLead}</p>
+    <div class="hack-list">
+      {
+        HACKATHONS.map((h) => (
+          <article class="hack">
+            <div class="meta">{h.when[lang]}</div>
+            <h3>{h.event[lang]}</h3>
+            <div class="hack-result">{h.result[lang]}</div>
+            {h.project && (
+              <div class="hack-project">
+                <p>
+                  <strong>{h.project.name[lang]}.</strong> {h.project.about[lang]}
+                </p>
+                <div class="tags">
+                  {h.project.stack.map((s) => (
+                    <span class="tag">{s}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Base>

@@ -18,6 +18,7 @@ const otherHref = altHref ?? url(`${other}/`);
 const fullTitle = title === t.blogTitle ? `${t.blogTitle} | ${SITE.author[lang]}` : `${title} | ${SITE.author[lang]}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const blogHref = url(`${lang}/`);
+const aboutHref = url(`${lang}/about/`);
 ---
 
 <!doctype html>
@@ -47,6 +48,7 @@ const blogHref = url(`${lang}/`);
       <a class="logo" href={blogHref}>{SITE.logo}</a>
       <nav class="nav">
         <a href={blogHref} aria-current={Astro.url.pathname === blogHref ? 'page' : undefined}>{t.blog}</a>
+        <a href={aboutHref} aria-current={Astro.url.pathname === aboutHref ? 'page' : undefined}>{t.about}</a>
       </nav>
       <div class="header-right">
         <div class="lang-switch">
