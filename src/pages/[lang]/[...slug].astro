@@ -5,7 +5,7 @@ import type { Lang } from '../../config';
 import { langOf, slugOf, type Post } from '../../utils';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', (p) => !p.data.draft);
+  const posts = await getCollection('blog', (p) => import.meta.env.DEV || !p.data.draft);
   return posts.map((post) => {
     const lang = langOf(post);
     const translation = posts.find((p) => langOf(p) !== lang && slugOf(p) === slugOf(post));

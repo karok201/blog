@@ -8,7 +8,7 @@ export const langOf = (p: Post) => p.id.split('/')[0] as Lang;
 export const slugOf = (p: Post) => p.id.split('/').slice(1).join('/');
 
 export async function getPosts(lang: Lang) {
-  const all = await getCollection('blog', (p) => !p.data.draft && langOf(p) === lang);
+  const all = await getCollection('blog', (p) => (import.meta.env.DEV || !p.data.draft) && langOf(p) === lang);
   return all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 

@@ -44,7 +44,7 @@ export const HACKATHONS: Hackathon[] = [
   {
     when: { ru: '2026', en: '2026' },
     event: { ru: 'MTS True Tech Hack', en: 'MTS True Tech Hack' },
-    result: { ru: 'Финалист среди 1000 команд, финал в Москве', en: 'Finalist out of 1,000 teams, final in Moscow' },
+    result: { ru: 'Финалисты среди 1000 команд, финал в Москве', en: 'Finalists out of 1,000 teams, final in Moscow' },
     project: {
       name: { ru: 'WikiLive для MWS Tables', en: 'WikiLive for MWS Tables' },
       about: {

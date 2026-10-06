@@ -354,6 +354,9 @@ img {
 .prose img {
   border-radius: 4px;
   margin: 1.4em 0;
+  width: auto;
+  max-width: min(868px, calc(100vw - 32px));
+  max-height: 720px;
 }
 
 .post-foot {
