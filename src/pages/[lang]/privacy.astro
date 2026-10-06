@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import { LANGS, SITE, T, type Lang } from '../../config';
+import { url } from '../../utils';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const other: Lang = lang === 'ru' ? 'en' : 'ru';
+const tg = `https://t.me/${SITE.telegram}`;
+---
+
+<Base lang={lang} title={t.privacy} description={t.privacy} altHref={url(`${other}/privacy/`)}>
+  <a class="back" href={url(`${lang}/`)}>‹ {t.back}</a>
+  <header class="post-head">
+    <h1>{t.privacy}</h1>
+  </header>
+  {
+    lang === 'ru' ? (
+      <div class="prose">
+        <p class="meta">Действует с 6 октября 2026</p>
+        <p>
+          Это личный блог. На сайте нет аккаунтов, форм и комментариев, и он не просит посетителей оставлять
+          персональные данные.
+        </p>
+        <h2>Аналитика и cookies</h2>
+        <p>Сайт не использует аналитику, счётчики посещений и cookies.</p>
+        <h2>Сторонние сервисы</h2>
+        <p>
+          Сайт размещён на GitHub Pages. GitHub может записывать технические данные запросов, например IP-адрес,
+          в соответствии со своей{' '}
+          <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">политикой конфиденциальности</a>.
+        </p>
+        <p>
+          Шрифты загружаются с Google Fonts, поэтому браузер передаёт Google IP-адрес и сведения о браузере.
+          Подробности есть в <a href="https://developers.google.com/fonts/faq/privacy">описании Google Fonts</a>.
+        </p>
+        <h2>Использование данных</h2>
+        <p>Автор блога не собирает, не хранит и не продаёт персональные данные посетителей.</p>
+        <h2>Внешние ссылки</h2>
+        <p>На сайте есть ссылки на другие сайты и сервисы. При переходе на них действуют их собственные правила.</p>
+        <h2>Контакты</h2>
+        <p>
+          Вопросы об этой политике можно задать в Telegram: <a href={tg}>@{SITE.telegram}</a>.
+        </p>
+      </div>
+    ) : (
+      <div class="prose">
+        <p class="meta">Effective date: October 6, 2026</p>
+        <p>
+          This is a personal blog. It has no user accounts, forms or comments, and it does not ask visitors to submit
+          personal information.
+        </p>
+        <h2>Analytics and cookies</h2>
+        <p>The site does not use analytics, visit counters or cookies.</p>
+        <h2>Third-party services</h2>
+        <p>
+          The site is hosted on GitHub Pages. GitHub may log technical request data such as IP addresses under its{' '}
+          <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">privacy statement</a>.
+        </p>
+        <p>
+          Fonts are loaded from Google Fonts, so your browser sends your IP address and browser details to Google. See
+          the <a href="https://developers.google.com/fonts/faq/privacy">Google Fonts privacy FAQ</a>.
+        </p>
+        <h2>Use of data</h2>
+        <p>The author does not collect, store or sell visitors' personal data.</p>
+        <h2>External links</h2>
+        <p>This site links to other websites and services. Their own privacy policies apply when you visit them.</p>
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy can be sent via Telegram at <a href={tg}>@{SITE.telegram}</a>.
+        </p>
+      </div>
+    )
+  }
+</Base>

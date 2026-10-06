@@ -63,7 +63,10 @@ const aboutHref = url(`${lang}/about/`);
     </main>
     <footer class="container site-footer">
       <span>© {new Date().getFullYear()} {SITE.author[lang]}</span>
-      <a href={url(`${lang}/rss.xml`)}>RSS</a>
+      <span class="footer-links">
+        <a href={url(`${lang}/privacy/`)}>Privacy</a>
+        <a href={url(`${lang}/rss.xml`)}>RSS</a>
+      </span>
     </footer>
   </body>
 </html>

@@ -524,3 +524,14 @@ img {
   color: var(--text);
   font-weight: 500;
 }
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+
+.page-head h1,
+.post-head h1 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
